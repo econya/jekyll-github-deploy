@@ -9,6 +9,7 @@ BRANCH_FROM=$3
 DEPLOY_CONFIG=$4
 BUNDLE=$5
 DRAFTS=$6
+COPY_README=$7
 SRC=$(pwd)
 TEMP=$(mktemp -d -t jgd-XXX)
 trap "rm -rf ${TEMP}" EXIT
@@ -52,7 +53,9 @@ fi
 echo -e "\nDeploying into ${BRANCH} branch:"
 rm -rf *
 cp -R ${TEMP}/_site/* .
-rm -f README.md
+if [ -z "$COPY_README" ]; then
+  rm -f README.md
+fi
 git add .
 git commit -am "new version $(date)" --allow-empty
 git push origin ${BRANCH} 2>&1 | sed 's|'$URL'|[skipped]|g'

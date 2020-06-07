@@ -44,6 +44,7 @@ Below is a list of all command line options.
 | `-r` or `--branch-from` | The source branch. Defaults to `master`. |
 | `-c` or `--config` | Name of the optional deploy config file. See [Production variables](#production-variables) below for more information. |
 | `-d` or `--drafts` | Adds the `--drafts` option to Jekyll so that it will build draft posts. |
+| `-o` or `--copy-readme` | Copies the README.md file to root of repository. |
 | `-h` or `--help` | Displays a list of all options. |
 
 If you need to have different values for your deployed blog, just add a

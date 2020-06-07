@@ -35,6 +35,7 @@ Usage: jgd [options]
   opt :config, 'Deploy Config File', type: String, default: '_config-deploy.yml'
   opt :bundle, 'Use bundle'
   opt :drafts, 'Generate drafts'
+  opt :copy_readme, 'Copy the README.md file to root of repository'
 end
 
 branch = opts[:branch]
@@ -47,10 +48,11 @@ url = opts[:url]
 url = `git config --get remote.origin.url`.strip if url.empty?
 bundle = opts[:bundle] ? '"bundle exec"' : '""'
 drafts = opts[:drafts] ? '"--drafts"' : '""'
+copy_readme = opts[:copy_readme] ? '"--copyreadme"' : '""'
 
 spec = Gem::Specification.find_by_name('jgd')
 root = spec.gem_dir
 script = File.join(root, 'bash/deploy.sh')
 
 fail 'deployment failed, see log above' \
-  unless system("#{script} #{url} #{branch} #{branch_from} #{config} #{bundle} #{drafts}")
+  unless system("#{script} #{url} #{branch} #{branch_from} #{config} #{bundle} #{drafts} #{copy_readme}")
